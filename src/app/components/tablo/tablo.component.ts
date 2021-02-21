@@ -12,11 +12,10 @@ export class TabloComponent implements OnInit {
 
   ngOnInit(): void {
     this.webSocket.listen('connect').subscribe( () => console.log('Connection succeeded') );
-    this.webSocket.listen('userInfo').subscribe( data => console.log(data) );
   }
 
   addNewUser(): void {
-    this.webSocket.emit('queue', 'hello');
+    this.webSocket.emit('registration', '');
   }
 
 }
