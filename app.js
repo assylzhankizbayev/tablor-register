@@ -13,14 +13,14 @@ const socket = io("https://tablo-server.gp3.kz");
 
 socket.on("connect", () => {
   console.log("Connection succeeded");
+});
 
-  socket.on("registered-users-amount", (data) => {
-    console.log("registered user id", data.amount);
-    
-    if (data && data.amount) {
-      escPosPrint(data.amount);
-    }
-  });
+socket.on("registered-users-amount", (data) => {
+  console.log("registered user id", data.amount);
+  
+  if (data && data.amount) {
+    escPosPrint(data.amount);
+  }
 });
 
 const hbs = exhbs.create({
