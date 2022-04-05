@@ -11,16 +11,15 @@ const io = require("socket.io-client");
 const socket = io("https://tablo-server.gp3.kz");
 // const socket = io("http://localhost:8080");
 
+let userId = 0;
+
 socket.on("connect", () => {
   console.log("Connection succeeded");
 });
 
-socket.on("registered-users-amount", (data) => {
-  console.log("registered user id", data.amount);
-  
-  if (data && data.amount) {
-    escPosPrint(data.amount);
-  }
+socket.on("init", ({ regIdx }) => {
+  console.log("init", regIdx);
+  userId = regIdx++;
 });
 
 const hbs = exhbs.create({
@@ -37,6 +36,9 @@ app.use(express.static(path.join(__dirname, "public")));
 // routes
 app.use("/", homeRoutes);
 app.post("/print", (req, res) => {
+  userId++;
+  console.log("user id", userId);
+  escPosPrint(userId);
   socket.emit("registration", "");
   res.redirect("/");
 });
